@@ -1,5 +1,7 @@
 package lk.ijse.pos.view.tblmodel;
 
+import lk.ijse.pos.model.Item;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,14 +9,14 @@ import java.math.BigDecimal;
  * @since : 0.1.0
  **/
 
-public class ItemTM {
+public class ItemTM extends Item {
 
     private String code;
     private String description;
     private BigDecimal unitPrice;
     private int qtyOnHand;
 
-    public ItemTM() {
+    public ItemTM(String code, String description, String unitPrice, int qtyOnHand) {
     }
 
     public ItemTM(String code, String description, BigDecimal unitPrice, int qtyOnHand) {

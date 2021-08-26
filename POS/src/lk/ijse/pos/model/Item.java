@@ -60,7 +60,7 @@ public class Item {
     /**
      * @return the unitPrice
      */
-    public BigDecimal getUnitPrice() {
+    public String getUnitPrice() {
         return unitPrice;
     }
 
