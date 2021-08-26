@@ -41,13 +41,10 @@ public class CustomerDAOImpl {
         return (pstm.executeUpdate() > 0);
     }
 
-    public boolean searchCustomer(String id) throws Exception {
+    public Customer searchCustomer(String id) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
         Statement stm = connection.createStatement();
         ResultSet rst = stm.executeQuery("SELECT * FROM Customer where id=?");
-        if (rst.next()) {
-            return new Customer(rst.getString("id"), rst.getString("name"), rst.getString("address"));
-        }
         return null;
     }
 
