@@ -44,6 +44,20 @@ public class ItemDAOImpl {
         return (pstm.executeUpdate ()>0);
     }
 
+    public Item searchItem(String code) throws Exception {
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement stm = connection.prepareStatement("SELECT * FROM Item where code=?");
+        stm.setObject(1, code);
+        ResultSet rst = stm.executeQuery();
+        if (rst.next()) {
+            return new Item(rst.getString(1),
+                    rst.getString(2),
+                    rst.getBigDecimal(3),
+                    rst.getInt(4));
+        }
+        return null;
+    }
+
     public ArrayList<Item> getAllItems() throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
 
