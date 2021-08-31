@@ -1,6 +1,5 @@
-package dao;
+package lk.ijse.pos.dao;
 
-import javafx.scene.input.InputMethodTextRun;
 import lk.ijse.pos.db.DBConnection;
 import lk.ijse.pos.model.Customer;
 
