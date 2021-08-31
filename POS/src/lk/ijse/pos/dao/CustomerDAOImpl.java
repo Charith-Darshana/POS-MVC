@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CustomerDAOImpl {
+public class CustomerDAOImpl implements CustomerDAO {
 
     public boolean addCustomer(Customer customer) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
@@ -49,6 +49,11 @@ public class CustomerDAOImpl {
         if (rst.next()) {
             return new Customer(rst.getString("id"), rst.getString("name"), rst.getString("address"));
         }
+    }
+
+    @Override
+    public ArrayList<Customer> getAllCustomer() throws Exception {
+        return null;
     }
 
 

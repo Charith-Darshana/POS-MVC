@@ -50,6 +50,8 @@ public class ManageItemFormController implements Initializable{
 
     private boolean addNew = true;
 
+    ItemDAO itemDAO = new ItemDAOImpl ( );
+
     private void loadAllItems(){
         try {
 

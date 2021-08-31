@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-public class OrderDAOImpl {
+public class OrderDAOImpl implements OrderDAO {
 
     public boolean addOrder(Orders orders) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();

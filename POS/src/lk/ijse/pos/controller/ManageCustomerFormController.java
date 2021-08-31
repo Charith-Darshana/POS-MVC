@@ -52,6 +52,8 @@ public class ManageCustomerFormController implements Initializable {
     @FXML
     private TableView<CustomerTM> tblCustomers;
 
+    CustomerDAO customerDAO = new CustomerDAOImpl ( );
+
     private void loadAllCustomers() {
 
         try {

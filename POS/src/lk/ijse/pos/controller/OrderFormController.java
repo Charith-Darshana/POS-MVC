@@ -86,6 +86,14 @@ public class OrderFormController implements Initializable {
 
     private Connection connection;
 
+    CustomerDAO customerDAO = new CustomerDAOImpl ( );
+
+    ItemDAO itemDAO = new ItemDAOImpl ( );
+
+    OrderDAO orderDAO = new OrderDAOImpl ( );
+
+    OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAOImpl ( );
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
