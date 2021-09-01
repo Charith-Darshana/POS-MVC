@@ -21,6 +21,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import lk.ijse.pos.dao.*;
+import lk.ijse.pos.dao.custom.CustomerDAO;
+import lk.ijse.pos.dao.custom.ItemDAO;
+import lk.ijse.pos.dao.custom.OrderDAO;
+import lk.ijse.pos.dao.custom.OrderDetailsDAO;
 import lk.ijse.pos.db.DBConnection;
 import lk.ijse.pos.model.Customer;
 import lk.ijse.pos.model.Item;
@@ -89,7 +93,7 @@ public class OrderFormController implements Initializable {
 
     OrderDAO orderDAO = new OrderDAOImpl ( );
 
-    OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAOImpl ( );
+    private OrderDetailsDAO orderDetailsDAO =  new OrderDetailsDAOImpl ( );
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

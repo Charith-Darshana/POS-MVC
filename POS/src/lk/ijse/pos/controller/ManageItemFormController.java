@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
 import lk.ijse.pos.dao.ItemDAO;
 import lk.ijse.pos.dao.ItemDAOImpl;
+import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.model.Item;
 import lk.ijse.pos.view.tblmodel.ItemTM;
 
@@ -57,7 +58,7 @@ public class ManageItemFormController implements Initializable{
         try {
 
             ItemDAOImpl itemDAO = new ItemDAOImpl();
-            ArrayList<Item> allItems = itemDAO.getAllItems();
+            ArrayList<Item> allItems = itemDAO.getAll();
 
             ArrayList<ItemTM> allItemsForTable= new ArrayList<>();
             for (Item i : allItems) {

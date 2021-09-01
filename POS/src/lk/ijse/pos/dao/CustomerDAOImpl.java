@@ -1,5 +1,6 @@
 package lk.ijse.pos.dao;
 
+import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.db.DBConnection;
 import lk.ijse.pos.model.Customer;
 import lk.ijse.pos.utils.CrudUtils;
@@ -12,25 +13,29 @@ import java.util.ArrayList;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
-    public boolean addCustomer(Customer customer) throws Exception {
-        return CrudUtils.execute ( "INSERT INTO Customer VALUES (?,?,?,?)",
-                customer.getcID (),
-                customer.getName (),
-                customer.getAddress (),0);
+    @Override
+        public boolean add(Customer customer) throws Exception {
+            return CrudUtils.execute ( "INSERT INTO Customer VALUES (?,?,?,?)",
+                    customer.getcID (),
+                    customer.getName (),
+                    customer.getAddress (),0);
     }
 
-    public boolean updateCustomer(Customer customer) throws Exception {
+    @Override
+    public boolean update(Customer customer) throws Exception {
         return CrudUtils.execute ( "UPDATE Customer SET name=?, address=? WHERE id=?",
                 customer.getName (),
                 customer.getAddress (),
                 customer.getcID ());
     }
 
-    public boolean deleteCustomer(String id) throws Exception {
-        return CrudUtils.execute ( "DELETE FROM Customer WHERE id=?",id );
+    @Override
+    public boolean delete(String s) throws Exception {
+        return CrudUtils.execute ( "DELETE FROM Customer WHERE id=?",id);
     }
 
-    public Customer searchCustomer(String id) throws Exception {
+    @Override
+    public Customer search(String s) throws Exception {
         ResultSet resultSet = CrudUtils.execute ( "SELECT * FROM Customer where id=?",id );
 
         if (resultSet.next()) {
@@ -40,16 +45,10 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public ArrayList<Customer> getAllCustomer() throws Exception {
-        return null;
-    }
-
-
-    public ArrayList<Customer> getAllCustomers() throws Exception {
+    public ArrayList<Customer> getAll() throws Exception {
         ResultSet resultSet = CrudUtils.execute ( "SELECT * FROM Customer" );
 
         ArrayList<Customer> alCustomers = new ArrayList<>();
-
         while (resultSet.next()) {
             Customer customer = new Customer(
                     resultSet.getString(1),
@@ -59,5 +58,4 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return alCustomers;
     }
-
 }
