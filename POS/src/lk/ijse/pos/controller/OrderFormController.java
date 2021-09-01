@@ -20,6 +20,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import lk.ijse.pos.bo.CustomerBOImpl;
+import lk.ijse.pos.bo.ItemBOImpl;
 import lk.ijse.pos.dao.*;
 import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.dao.custom.ItemDAO;
@@ -87,13 +89,9 @@ public class OrderFormController implements Initializable {
 
     private Connection connection;
 
-    CustomerDAO customerDAO = new CustomerDAOImpl ( );
+    CustomerBOImpl customerBO = new CustomerBOImpl ();
 
-    ItemDAO itemDAO = new ItemDAOImpl ( );
-
-    OrderDAO orderDAO = new OrderDAOImpl ( );
-
-    private OrderDetailsDAO orderDetailsDAO =  new OrderDetailsDAOImpl ( );
+    ItemBOImpl itemBO = new ItemBOImpl ();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -245,9 +243,7 @@ public class OrderFormController implements Initializable {
 
 
         try {
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
-            ArrayList<Customer> allCustomers = customerDAO.getAllCustomers();
-            cmbCustomerID.getItems().removeAll(cmbCustomerID.getItems());
+            ArrayList<Customer> allCustomer = customerBO.getAllCustomer ( );
 
             for (Customer customer : allCustomers) {
                 String id = customer.getcID();
@@ -255,7 +251,7 @@ public class OrderFormController implements Initializable {
             }
 
             ItemDAOImpl itemDAO = new ItemDAOImpl();
-            ArrayList<Item> allItems = itemDAO.getAllItems();
+            ArrayList<Item> allItems = itemDAO.getAll();
 
             cmbItemCode.getItems().removeAll(cmbItemCode.getItems());
 
@@ -346,7 +342,7 @@ public class OrderFormController implements Initializable {
             OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAO ( );
             for (OrderDetailTM orderDetail: olOrderDetails) {
                 OrderDetails orderDetails = new OrderDetails ( txtOrderID.getText ( ) , orderDetail.getItemCode () ,orderDetail.getQty (),new BigDecimal ( orderDetail.getUnitPrice () ) );
-                boolean b = orderDetailsDAO.addOrderDetails ( orderDetails );
+                boolean b = orderDetailsDAO.add ( orderDetails );
 
                 if (!b) {
                     connection.rollback();

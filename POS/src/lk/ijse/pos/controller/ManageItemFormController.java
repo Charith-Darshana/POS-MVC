@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
+import lk.ijse.pos.bo.ItemBOImpl;
 import lk.ijse.pos.dao.ItemDAO;
 import lk.ijse.pos.dao.ItemDAOImpl;
 import lk.ijse.pos.dao.custom.ItemDAO;
@@ -52,7 +53,7 @@ public class ManageItemFormController implements Initializable{
 
     private boolean addNew = true;
 
-    ItemDAO itemDAO = new ItemDAOImpl ( );
+    ItemBOImpl itemBO = new ItemBOImpl ();
 
     private void loadAllItems(){
         try {
