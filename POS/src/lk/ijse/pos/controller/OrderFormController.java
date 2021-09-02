@@ -20,26 +20,23 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import lk.ijse.pos.bo.CustomerBOImpl;
-import lk.ijse.pos.bo.ItemBOImpl;
-import lk.ijse.pos.bo.PlaceOrderBOImpl;
-import lk.ijse.pos.dao.*;
-import lk.ijse.pos.dao.custom.CustomerDAO;
-import lk.ijse.pos.dao.custom.ItemDAO;
-import lk.ijse.pos.dao.custom.OrderDAO;
-import lk.ijse.pos.dao.custom.OrderDetailsDAO;
-import lk.ijse.pos.db.DBConnection;
+import lk.ijse.pos.bo.custom.BOFactory;
+import lk.ijse.pos.bo.custom.CustomerBO;
+import lk.ijse.pos.bo.custom.ItemBO;
+import lk.ijse.pos.bo.custom.PlaceOrderBO;
+import lk.ijse.pos.dao.ItemDAOImpl;
 import lk.ijse.pos.model.Customer;
 import lk.ijse.pos.model.Item;
 import lk.ijse.pos.model.OrderDetails;
 import lk.ijse.pos.model.Orders;
 import lk.ijse.pos.view.tblmodel.OrderDetailTM;
 
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -88,11 +85,11 @@ public class OrderFormController implements Initializable {
     @FXML
     private JFXDatePicker txtOrderDate;
 
-    PlaceOrderBOImpl placeOrderBO = new PlaceOrderBOImpl ( );
+    PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getInstance ( ).getBO ( BOFactory.BOType.ORDER );
 
-    CustomerBOImpl customerBO = new CustomerBOImpl ();
+    CustomerBO customerBO = (CustomerBO) BOFactory.getInstance ( ).getBO ( BOFactory.BOType.CUSTOMER );
 
-    ItemBOImpl itemBO = new ItemBOImpl ();
+    ItemBO itemBO = (ItemBO) BOFactory.getInstance ( ).getBO ( BOFactory.BOType.ITEM );
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

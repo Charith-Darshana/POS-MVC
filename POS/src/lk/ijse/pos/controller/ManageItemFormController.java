@@ -16,10 +16,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
-import lk.ijse.pos.bo.ItemBOImpl;
-import lk.ijse.pos.dao.ItemDAO;
+import lk.ijse.pos.bo.custom.BOFactory;
+import lk.ijse.pos.bo.custom.ItemBO;
 import lk.ijse.pos.dao.ItemDAOImpl;
-import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.model.Item;
 import lk.ijse.pos.view.tblmodel.ItemTM;
 
@@ -53,7 +52,7 @@ public class ManageItemFormController implements Initializable{
 
     private boolean addNew = true;
 
-    ItemBOImpl itemBO = new ItemBOImpl ();
+    ItemBO itemBO = (ItemBO) BOFactory.getInstance ( ).getBO ( BOFactory.BOType.ITEM );
 
     private void loadAllItems(){
         try {
@@ -120,7 +119,7 @@ public class ManageItemFormController implements Initializable{
                 /*Add Item*/
                 ItemDAOImpl itemDAO = new ItemDAOImpl();
                 Item item = new Item(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
-                boolean b = itemDAO.addItem(item);
+                boolean b = itemDAO.add(item);
                 if (b){
                     loadAllItems();
                 }else{
@@ -134,7 +133,7 @@ public class ManageItemFormController implements Initializable{
             try {
                 ItemDAOImpl itemDAO = new ItemDAOImpl();
                 Item item = new Item(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
-                boolean b = itemDAO.updateItem(item);
+                boolean b = itemDAO.updateItemQtyOnHand(item);
                 if (b){
                     loadAllItems();
                 }else{
@@ -152,7 +151,7 @@ public class ManageItemFormController implements Initializable{
 
         try {
             ItemDAOImpl itemDAO = new ItemDAOImpl();
-            boolean b = itemDAO.deleteItem(code);
+            boolean b = itemDAO.delete(code);
             if (b){
                 loadAllItems();
             }else{

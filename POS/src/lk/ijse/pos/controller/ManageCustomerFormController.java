@@ -16,7 +16,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
-import lk.ijse.pos.bo.CustomerBOImpl;
+import lk.ijse.pos.bo.custom.BOFactory;
+import lk.ijse.pos.bo.custom.CustomerBO;
 import lk.ijse.pos.dao.CustomerDAOImpl;
 import lk.ijse.pos.db.DBConnection;
 import lk.ijse.pos.model.Customer;
@@ -50,7 +51,7 @@ public class ManageCustomerFormController implements Initializable {
     @FXML
     private TableView<CustomerTM> tblCustomers;
 
-    CustomerBOImpl customerBO = new CustomerBOImpl ();
+    CustomerBO customerBO = (CustomerBO) BOFactory.getInstance ( ).getBO ( BOFactory.BOType.CUSTOMER );
 
     private void loadAllCustomers() {
 
@@ -60,7 +61,7 @@ public class ManageCustomerFormController implements Initializable {
             ArrayList<Customer> allCustomer = customerBO.getAllCustomer ( );
             ArrayList<CustomerTM> allCustomersForTable = new ArrayList<>();
 
-            for (Customer customer : allCustomers) {
+            for (Customer customer : allCustomer) {
                 allCustomersForTable.add(new CustomerTM(customer.getcID(), customer.getName(), customer.getAddress()));
             }
 
@@ -164,7 +165,7 @@ public class ManageCustomerFormController implements Initializable {
 
             try {
                     CustomerDAOImpl dao = new CustomerDAOImpl();
-                    boolean b = customerBO.addCustomer ( new Customer ( txtCustomerId.getText ( ) , txtCustomerName.getText ( ) , txtCustomerAddress.getText ( ) ) );
+                    boolean b = customerBO.add ( new Customer ( txtCustomerId.getText ( ) , txtCustomerName.getText ( ) , txtCustomerAddress.getText ( ) ) );
                     if (b) {
                         loadAllCustomers();
                     } else {
